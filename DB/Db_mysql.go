@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"github.com/astaxie/beego"
+	_ "github.com/go-sql-driver/mysql"
 	"intimate/models"
 )
 
@@ -31,17 +32,23 @@ func init() {
 }
 
 func InsertUser(user models.UserModels)(int64,error){
-	hashMD5 := md5.New()
-	hashMD5.Write([]byte(user.PassWord))
-	bytes := hashMD5.Sum(nil)
-	user.PassWord = hex.EncodeToString(bytes)
-	fmt.Println("保存的用户名：", user.Name, "密码：", user.PassWord)
-	result, err := Db.Exec("insert into user(nick,password) value(?,?)", user.Nick, user.Password)
+	hashMD5pwd := md5.New()
+	hashMD5idcard :=md5.New()
+	hashMD5pwd.Write([]byte(user.PassWord))
+	hashMD5idcard.Write([]byte(user.IDcard))
+	pwdBytes := hashMD5pwd.Sum(nil)
+	idcardBytes :=hashMD5idcard.Sum(nil)
+	user.PassWord = hex.EncodeToString(pwdBytes)
+	user.IDcard = hex.EncodeToString(idcardBytes)
+	fmt.Println("保存的用户名：", user.Name, "密码：", user.PassWord,"身份证号:",user.IDcard)
+	result, err := Db.Exec("insert into user(name,identification,phone,password) value(?,?,?,?)", user.Name,user.IDcard,user.Phone, user.PassWord)
 	if err != nil {
+		fmt.Println(err.Error())
 		return -1, err
 	}
 	id, err := result.RowsAffected()
 	if err != nil {
+		fmt.Println(err.Error())
 		return -1, err
 	}
 	return id, nil

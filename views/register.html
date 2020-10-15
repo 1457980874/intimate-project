@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>user_info</title>
+    <style>
+        body{
+            background-image: linear-gradient(120deg,#EAD6EE,#A0F1EA);
+        }
+        #form1{
+
+            width: 360px;
+            height: 400px;
+            background:#f1f1f1;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 20px;
+            padding: 40px 20px;
+        }
+        .info{
+            text-align: center;
+        }
+        .info-form-out{
+            margin-left: 50px;
+        }
+        #IDcard{
+            width: 160px;
+        }
+        #iptsub{
+            margin-bottom: 50px;
+            outline: none;
+            margin: auto;
+            display: block;
+            width: 200px;
+            height: 60px;
+            border: none;
+            background: linear-gradient(150deg,#fff,#EAD6EE,#A0F1EA);
+            background-size: 200%;
+            cursor: pointer;
+            transition: .5s;
+            border-radius: 10px;
+            color: #a17fe0;
+            font-family: simsun;
+            font-size: larger;
+        }
+        #iptsub:hover{
+            background-position: right;
+            color: #fff;
+        }
+        .info-form{
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+<form id="form1" action="http://127.0.0.1:8080/register" method="post">
+    <h1 class="info">用户注册</h1>
+    <div class="info-form-out">
+        <div class="info-form">
+            姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:<input type="text" maxlength="12" id="username" name="username" value=""/>
+        </div>
+        <br />
+        <div class="info-form">
+            手&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;号:<input type="text" id="phone" name="phone" >
+        </div>
+        <br />
+        <div class="info-form">
+            密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:<input type="password" id="password" name="password">
+        </div>
+        <br />
+        <div class="info-form">
+            证&nbsp;&nbsp;件&nbsp;&nbsp;&nbsp;号:<input type="text" id="IDcard" value="" name="IDcard" />
+        </div>
+        <br />
+    </div>
+    <input type="submit" id="iptsub" value="提交" onmouseover="check()" />
+</form>
+</body>
+<script type="text/javascript">
+    /*function checkName(){
+        if(document.getElementById("username").value.length==0){
+            alert("姓名不能为空！")
+        }
+    }
+
+    function checkPhone() {
+
+        if(document.getElementById("phone").value.length!=11){
+            alert("请输入有效的手机号！")
+        }
+    }
+    function checkPassword(){
+        var pwd =document.getElementById("password")
+        if(pwd<6&&pwd>18){
+            alert("请输入6至18位密码！")
+        }
+    }
+    function checkIDcard(){
+        if(document.getElementById("IDcard").value.length!=18){
+            alert("错误证件号！")
+        }
+    }*/
+    function check() {
+        if(document.getElementById("username").value.length==0){
+            alert("姓名不能为空！")
+        }
+        if(document.getElementById("phone").value.length!=11){
+            alert("请输入有效的手机号！")
+        }
+        var pwd =document.getElementById("password")
+        if(pwd.value.length<6&&pwd.value.length>18){
+            alert("请输入6至18位密码！")
+        }
+        if(document.getElementById("IDcard").value.length!=18){
+            alert("错误证件号！")
+        }
+    }
+</script>
+</html>

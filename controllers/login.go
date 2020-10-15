@@ -13,7 +13,7 @@ type LoginController struct {
 func (u *LoginController) Get(){
 	u.TplName="login.html"
 }
-
+//登录处理
 func (u *LoginController) Post(){
 	var user models.UserModels
 	err:=u.ParseForm(&user)
@@ -21,10 +21,12 @@ func (u *LoginController) Post(){
 		u.Ctx.WriteString("解析失败，请重试！")
 		return
 	}
-	_, err = DB.QueryUser(user)
+	adm, err := DB.QueryUser(user)
 	if err != nil {
 		u.Ctx.WriteString("登陆失败，请重试！")
 		return
 	}
 
+	u.Data["Name"] = adm.Name
+	u.Ctx.WriteString("登录成功")
 }
