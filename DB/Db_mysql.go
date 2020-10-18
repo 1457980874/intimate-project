@@ -55,10 +55,12 @@ func InsertUser(user models.UserModels)(int64,error){
 }
 
 func QueryUser(user models.UserModels)(*models.UserModels,error){
+	fmt.Println(user.Name)
 	hashMD5 := md5.New()
 	hashMD5.Write([]byte(user.PassWord))
 	bytes := hashMD5.Sum(nil)
 	user.PassWord=hex.EncodeToString(bytes)
+	fmt.Println(user.PassWord)
 	row:=Db.QueryRow("select name from user where name = ? and password = ?",user.Name,user.PassWord)
 	err:=row.Scan(&user.Name)
 	if err != nil {

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"intimate/DB"
 	"intimate/models"
@@ -23,10 +24,11 @@ func (u *LoginController) Post(){
 	}
 	adm, err := DB.QueryUser(user)
 	if err != nil {
+		fmt.Println(err.Error())
 		u.Ctx.WriteString("登陆失败，请重试！")
 		return
 	}
 
 	u.Data["Name"] = adm.Name
-	u.Ctx.WriteString("登录成功")
+	u.TplName="upload.html"
 }
