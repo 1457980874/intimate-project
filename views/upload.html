@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        *{
+            background-image: linear-gradient(90deg,#00416A,#799F0C,#FFE000);
+        }
+    </style>
 </head>
 <body>
-
+    <form id="fform" method="POST" enctype="multipart/form-data" action="/upload">
+        <input id="myfile" name="myfile" type="file"/>
+        <input type="submit" value="保存"/>
+    </form>
 </body>
 </html>

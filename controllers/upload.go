@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"crypto/md5"
 	"fmt"
 	"github.com/astaxie/beego"
 	"math/rand"
@@ -33,11 +34,24 @@ func (this *UploadFireController) Upload(){
 		return
 	}
 	//创建目录
-	uploadDir:="static/img/"+time.Now().Format("2020/10/15")
+	uploadDir:="static/img/"+time.Now().Format("2006/01/02/")
 	err:=os.MkdirAll(uploadDir,777)
 	if err != nil {
 		this.Ctx.WriteString(fmt.Sprintf("%v",err))
 		return
 	}
 	rand.Seed(time.Now().UnixNano())
+	randNum:=fmt.Sprintf("%d",rand.Intn(9999)+1000)
+	hashName:=md5.Sum([]byte(time.Now().Format("2006_01_02_15_04_05")+randNum))
+
+	fileName:=fmt.Sprintf("%x",hashName)+ex
+
+	fpath:=uploadDir+fileName
+	defer f.Close()//关闭文件
+	err=this.SaveToFile("myfile",fpath)
+	if err != nil {
+		this.Ctx.WriteString(fmt.Sprintf("%v",err))
+
+	}
+	this.Ctx.WriteString("上传成功！")
 }
